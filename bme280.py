@@ -204,3 +204,32 @@ class BME280:
         hd = h * 100 // 1024 - hi * 100
         return ("{}C".format(t / 100), "{}.{:02d}hPa".format(pi, pd),
                 "{}.{:02d}%".format(hi, hd))
+
+    @property
+    def readings(self):
+        """ human readable values """
+
+        t, p, h = self.read_compensated_data()
+
+        p = p // 256
+        pi = p // 100
+        pd = p - pi * 100
+
+        hi = h // 1024
+        hd = h * 100 // 1024 - hi * 100
+
+        readings = {
+            "pressure": {
+                "value": float("{}.{:02d}".format(pi, pd)),
+                "unit": "hPa"
+            },
+            "temperature": {
+                "value": t/100,
+                "unit": "C"
+            },
+            "humidity": {
+                "value": float("{}.{:02d}".format(hi, hd)),
+                "unit": "%"
+            }
+        }
+        return readings

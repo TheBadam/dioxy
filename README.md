@@ -5,3 +5,7 @@ Will include Raspberry Pico 2 W sensor broadcasting.
 
 ENS160 based on [awsiuk/ENS160](https://github.com/awsiuk/ENS160)
 BME280 history explained in the class.
+
+# RUN
+Add `connection.py` with specified: `SSID`, `PASSWORDa, and `PORT`.
+Upload project to pico.
