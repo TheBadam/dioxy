@@ -40,6 +40,7 @@ def serve(connection, get_data):
     #Start a web server
     while True:
         client = connection.accept()[0]
+
         request = client.recv(1024)
         request = str(request)
         try:
@@ -47,9 +48,14 @@ def serve(connection, get_data):
         except IndexError:
             pass
         
-        json_str = json.dumps(get_data())
         client.send('HTTP/1.0 200 OK\r\n')
         client.send("Content-Type: application/json; charset=utf-8\r\n\r\n")
-        client.send(json_str.encode())
         
+        data = {}
+        if request == '/data':
+            data = get_data()
+
+        json_str = json.dumps(data)
+        client.send(json_str.encode())
+
         client.close()
