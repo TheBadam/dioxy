@@ -36,7 +36,7 @@ def open_socket(ip):
     sock.listen(1)
     return sock
     
-def serve(connection, data):
+def serve(connection, get_data):
     #Start a web server
     while True:
         client = connection.accept()[0]
@@ -47,7 +47,7 @@ def serve(connection, data):
         except IndexError:
             pass
         
-        json_str = json.dumps(data)
+        json_str = json.dumps(get_data())
         client.send('HTTP/1.0 200 OK\r\n')
         client.send("Content-Type: application/json; charset=utf-8\r\n\r\n")
         client.send(json_str.encode())

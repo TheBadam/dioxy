@@ -13,7 +13,7 @@ if __name__ == "__main__":
     try:
         ip = connect()
         conn = open_socket(ip)
-        serve(conn, read_sensor())
+        serve(conn, read_sensor)
     except Exception as e:
         print(e)
         log_message(filename, e)  
